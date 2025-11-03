@@ -1,0 +1,17 @@
+class CreateWebhookEvents < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
+  def change
+    create_table :webhook_events do |t|
+      t.string :event_type, null: false
+      t.references :eventable, polymorphic: true, null: false
+      t.json :payload, null: false
+      t.string :idempotency_key, null: false
+
+      t.timestamps
+    end
+
+    add_index :webhook_events, :event_type
+    add_index :webhook_events, :idempotency_key, unique: true
+    add_index :webhook_events, [:eventable_type, :eventable_id, :event_type],
+              name: "index_webhook_events_on_eventable_and_type"
+  end
+end

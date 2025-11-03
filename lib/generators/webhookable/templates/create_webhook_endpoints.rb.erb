@@ -1,0 +1,17 @@
+class CreateWebhookEndpoints < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
+  def change
+    create_table :webhook_endpoints do |t|
+      t.string :url, null: false
+      t.string :secret, null: false
+      t.boolean :enabled, default: true, null: false
+      t.text :description
+      t.json :events, default: []
+      t.json :metadata, default: {}
+
+      t.timestamps
+    end
+
+    add_index :webhook_endpoints, :enabled
+    add_index :webhook_endpoints, :url
+  end
+end

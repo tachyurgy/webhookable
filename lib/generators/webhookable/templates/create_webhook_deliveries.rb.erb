@@ -1,0 +1,27 @@
+class CreateWebhookDeliveries < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
+  def change
+    create_table :webhook_deliveries do |t|
+      t.references :webhook_endpoint, null: false, foreign_key: true
+      t.references :webhook_event, null: false, foreign_key: true
+
+      t.string :status, null: false, default: "pending"
+      t.integer :attempt_count, default: 0, null: false
+      t.datetime :last_attempt_at
+      t.datetime :next_retry_at
+
+      t.integer :response_code
+      t.text :response_body
+      t.text :error_message
+
+      t.json :request_headers, default: {}
+      t.json :response_headers, default: {}
+
+      t.timestamps
+    end
+
+    add_index :webhook_deliveries, :status
+    add_index :webhook_deliveries, :next_retry_at
+    add_index :webhook_deliveries, [:webhook_endpoint_id, :status]
+    add_index :webhook_deliveries, [:webhook_event_id, :status]
+  end
+end

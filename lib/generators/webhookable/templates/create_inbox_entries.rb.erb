@@ -1,0 +1,17 @@
+class CreateWebhookableInboxEntries < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
+  def change
+    create_table :webhookable_inbox_entries do |t|
+      t.references :webhook_delivery, foreign_key: { to_table: :webhook_deliveries }
+      t.string :url, null: false
+      t.json :payload, null: false
+      t.json :headers, default: {}
+      t.datetime :replayed_at
+      t.integer :replay_response_code
+      t.text :replay_response_body
+
+      t.timestamps
+    end
+
+    add_index :webhookable_inbox_entries, :created_at
+  end
+end
