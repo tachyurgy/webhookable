@@ -6,7 +6,7 @@ module Webhookable
 
     # Note: We handle retries ourselves in the Delivery class
     # This retry_on is a fallback for unexpected job failures
-    retry_on StandardError, wait: :exponentially_longer, attempts: 5
+    retry_on StandardError, wait: :polynomially_longer, attempts: 5
 
     def perform(webhook_delivery_id)
       webhook_delivery = Webhookable::WebhookDelivery.find(webhook_delivery_id)
