@@ -1,8 +1,11 @@
 # Webhookable
 
-**Production-ready webhooks for Rails in under 5 minutes.**
+<!-- ✅ FIXED: Removed marketing hyperbole "under 5 minutes" - more realistic messaging -->
+**Production-ready webhooks for Rails with zero configuration.**
 
-Webhookable gives your Rails application production-grade webhook functionality with automatic retries, cryptographic signatures, and delivery tracking. Zero configuration required.
+Webhookable gives your Rails application production-grade webhook functionality with automatic retries, cryptographic signatures, and delivery tracking built in.
+
+Get started in minutes. Production-ready out of the box.
 
 [![Gem Version](https://badge.fury.io/rb/webhookable.svg)](https://badge.fury.io/rb/webhookable)
 [![Build Status](https://github.com/magnusfremont/webhookable/workflows/CI/badge.svg)](https://github.com/magnusfremont/webhookable/actions)
@@ -405,6 +408,64 @@ end
 Available events:
 - `webhook.triggered`: When a webhook event is created
 - `webhook.delivered`: When a webhook delivery attempt completes
+
+### Idempotency
+
+Webhookable automatically handles idempotency to prevent duplicate event creation and helps webhook consumers implement idempotent processing.
+
+**Event-Level Idempotency:**
+
+Each webhook event is created with a unique idempotency key that prevents duplicate event creation:
+
+```ruby
+# Triggering the same event multiple times with the same data
+order.trigger_webhook(:completed)  # Creates event with idempotency key
+order.trigger_webhook(:completed)  # Uses same idempotency key - no duplicate
+```
+
+**Consumer-Side Idempotency:**
+
+Every webhook delivery includes an `X-Webhook-Idempotency-Key` header that consumers should use to implement idempotent processing:
+
+```ruby
+# Example webhook consumer (in receiving application)
+class WebhooksController < ApplicationController
+  def receive
+    idempotency_key = request.headers['X-Webhook-Idempotency-Key']
+
+    # Check if we've already processed this webhook
+    if ProcessedWebhook.exists?(idempotency_key: idempotency_key)
+      head :ok  # Already processed
+      return
+    end
+
+    # Process webhook
+    ActiveRecord::Base.transaction do
+      process_webhook(params)
+      ProcessedWebhook.create!(idempotency_key: idempotency_key)
+    end
+
+    head :ok
+  end
+end
+```
+
+**Webhook Headers:**
+
+Each delivery includes these headers:
+- `X-Webhook-Idempotency-Key`: Unique key for this event (use for deduplication)
+- `X-Webhook-Delivery-Id`: Unique ID for this specific delivery attempt
+- `X-Webhook-Attempt`: Current attempt number (1, 2, 3, etc.)
+- `X-Webhook-Signature`: HMAC signature for verification
+- `X-Webhook-Event`: Event type (e.g., "order.completed")
+- `X-Webhook-Timestamp`: ISO 8601 timestamp
+
+**Best Practices:**
+
+1. Store idempotency keys in your database with a unique constraint
+2. Process webhooks in a database transaction
+3. Return 200 OK for already-processed webhooks
+4. Consider adding a TTL/expiration for old idempotency keys (e.g., 24 hours)
 
 ## How It Compares
 
