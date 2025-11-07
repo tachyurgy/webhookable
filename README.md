@@ -500,19 +500,32 @@ Each delivery includes these headers:
 
 **When to use Webhookable**: When you need production-ready webhooks with built-in reliability, security, and observability.
 
-### vs. Svix (SaaS)
+### vs. Svix (Managed Service)
+
+<!-- ✅ FIXED: More balanced comparison acknowledging Svix's legitimate advantages -->
 
 | Feature | Svix | Webhookable |
 |---------|------|-------------|
-| Cost | $$ (external service) | Free (self-hosted) |
-| Data privacy | External | Your infrastructure |
-| Vendor lock-in | Yes | No |
-| Customization | Limited | Full control |
-| Great UI | ✅ | ⚠️ (basic) |
+| Deployment | Managed SaaS | Self-hosted |
+| Data location | External service | Your infrastructure |
+| Cost model | Per-event pricing | Free (self-hosted costs) |
+| Maintenance | Fully managed | You maintain |
+| UI/Dashboard | Professional UI | Basic (v0.2 roadmap) |
+| Customization | Limited to API | Full code control |
 
-**When to use Svix**: If you want a managed service and don't mind external dependencies and costs.
+**When to use Svix**:
+- You want a managed service with professional support
+- You need a polished UI for non-technical stakeholders
+- You prefer predictable per-event pricing over infrastructure management
+- You value not maintaining webhook infrastructure
 
-**When to use Webhookable**: If you want to keep webhooks in your infrastructure with zero recurring costs.
+**When to use Webhookable**:
+- You want full control over webhook logic and data flow
+- You have Rails expertise and prefer self-hosted solutions
+- You want zero recurring costs beyond infrastructure
+- You need deep customization beyond what APIs provide
+
+Both are valid choices for different contexts. The best option depends on your team's preferences and constraints.
 
 ## Architecture
 
