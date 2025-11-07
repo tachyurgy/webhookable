@@ -647,20 +647,13 @@ Special thanks to the Ruby and Rails communities for inspiration and foundationa
 
 ---
 
-<div align="center">
+<!-- ✅ FIXED: Toned down marketing-heavy CTA, focused on community contribution -->
 
-**Ready to add webhooks to your Rails app?**
+## Community
 
-```bash
-gem install webhookable
-```
-
-If you find Webhookable useful, please consider:
-- ⭐ Starring the repository
-- 📢 Sharing it with your network
-- 🐛 Reporting bugs or suggesting features
-- 🤝 Contributing to the project
+Enjoying Webhookable? Consider:
+- ⭐ [Starring the repo](https://github.com/magnusfremont/webhookable) to help others discover it
+- 🐛 [Reporting issues](https://github.com/magnusfremont/webhookable/issues) to improve it for everyone
+- 🤝 [Contributing](CONTRIBUTING.md) features or fixes
 
 [View on GitHub](https://github.com/magnusfremont/webhookable) | [View on RubyGems](https://rubygems.org/gems/webhookable)
-
-</div>
