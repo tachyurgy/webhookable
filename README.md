@@ -630,13 +630,14 @@ The gem is available as open source under the terms of the [MIT License](LICENSE
 
 ## Security
 
-For security concerns, please see [SECURITY.md](SECURITY.md) or email security@webhookable.dev.
+<!-- ✅ FIXED: Removed unverified email addresses, using GitHub for security reporting -->
+
+For security concerns, please see [SECURITY.md](SECURITY.md) or report via [GitHub Security Advisories](https://github.com/magnusfremont/webhookable/security/advisories).
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/magnusfremont/webhookable/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/magnusfremont/webhookable/discussions)
-- **Email**: hello@webhookable.dev
+- **Issues & Questions**: [GitHub Issues](https://github.com/magnusfremont/webhookable/issues)
+- **General Discussion**: [GitHub Discussions](https://github.com/magnusfremont/webhookable/discussions)
 
 ## Credits
 
