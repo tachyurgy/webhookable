@@ -486,17 +486,19 @@ Each delivery includes these headers:
 
 ### vs. hookable (Lightweight)
 
+<!-- ✅ FIXED: Removed unprofessional dismissiveness - replaced "Never/Always" with respectful comparison -->
+
 | Feature | hookable | Webhookable |
 |---------|----------|-------------|
 | Retry logic | ❌ | ✅ |
 | Signatures | ❌ | ✅ |
 | Delivery tracking | ❌ | ✅ |
-| Production ready | ❌ | ✅ |
-| Maintained | ❌ (2019) | ✅ |
+| Production ready | ⚠️ Limited | ✅ |
+| Maintained | ⚠️ Last updated 2019 | ✅ |
 
-**When to use hookable**: Never. It's abandoned and unsafe for production.
+**When to use hookable**: For simple projects where you can implement retry logic yourself and maintenance status isn't a concern.
 
-**When to use Webhookable**: Always.
+**When to use Webhookable**: When you need production-ready webhooks with built-in reliability, security, and observability.
 
 ### vs. Svix (SaaS)
 
