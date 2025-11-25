@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "active_support"
 require "active_support/core_ext"
 require "active_record"
@@ -8,6 +10,7 @@ require "logger"
 require_relative "webhookable/version"
 require_relative "webhookable/configuration"
 require_relative "webhookable/signature"
+require_relative "webhookable/url_validator"
 require_relative "webhookable/delivery"
 require_relative "webhookable/model"
 require_relative "webhookable/webhook_delivery_job"
@@ -60,6 +63,4 @@ if defined?(ActiveRecord::Base)
 end
 
 # Auto-load Rails integration if Rails is available
-if defined?(Rails)
-  require_relative "webhookable/railtie"
-end
+require_relative "webhookable/railtie" if defined?(Rails)

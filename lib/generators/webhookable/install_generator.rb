@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails/generators"
 require "rails/generators/active_record"
 
@@ -16,13 +18,13 @@ module Webhookable
 
       def create_migrations
         migration_template "create_webhook_endpoints.rb.erb",
-                          "db/migrate/create_webhook_endpoints.rb"
+          "db/migrate/create_webhook_endpoints.rb"
 
         migration_template "create_webhook_deliveries.rb.erb",
-                          "db/migrate/create_webhook_deliveries.rb"
+          "db/migrate/create_webhook_deliveries.rb"
 
         migration_template "create_webhook_events.rb.erb",
-                          "db/migrate/create_webhook_events.rb"
+          "db/migrate/create_webhook_events.rb"
       end
 
       def show_readme

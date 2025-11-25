@@ -98,7 +98,7 @@ Initial release of Webhookable.
 
 ### Technical Highlights
 
-- 100% test coverage
+- Test coverage for core delivery and signature verification (~49%, ongoing improvements)
 - Ruby 3.0+ support
 - Rails 6.1+ support
 - Thread-safe configuration

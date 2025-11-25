@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Webhookable
   class WebhookDelivery < ActiveRecord::Base
     self.table_name = "webhook_deliveries"
@@ -5,8 +7,8 @@ module Webhookable
     belongs_to :webhook_endpoint
     belongs_to :webhook_event
 
-    validates :status, presence: true, inclusion: { in: %w[pending success failed] }
-    validates :attempt_count, numericality: { greater_than_or_equal_to: 0 }
+    validates :status, presence: true, inclusion: {in: %w[pending success failed]}
+    validates :attempt_count, numericality: {greater_than_or_equal_to: 0}
 
     scope :pending, -> { where(status: "pending") }
     scope :successful, -> { where(status: "success") }
@@ -95,7 +97,8 @@ module Webhookable
         "X-Webhook-Event" => webhook_event.event_type,
         "X-Webhook-Delivery-Id" => id.to_s,
         "X-Webhook-Attempt" => attempt_count.to_s,
-        "X-Webhook-Timestamp" => Time.current.iso8601
+        "X-Webhook-Timestamp" => Time.current.iso8601,
+        "X-Webhook-Idempotency-Key" => webhook_event.idempotency_key
       }
     end
   end

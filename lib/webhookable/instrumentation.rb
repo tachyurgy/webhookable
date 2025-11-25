@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Webhookable
   module Instrumentation
     # Subscribe to webhook events
@@ -6,7 +8,7 @@ module Webhookable
     #     Rails.logger.info "Webhook event: #{event} - #{data.inspect}"
     #   end
     def self.subscribe(pattern = /^webhook\./, &block)
-      ActiveSupport::Notifications.subscribe(pattern) do |name, start, finish, id, payload|
+      ActiveSupport::Notifications.subscribe(pattern) do |name, start, finish, _id, payload|
         duration = finish - start
         block.call(name, payload.merge(duration: duration))
       end

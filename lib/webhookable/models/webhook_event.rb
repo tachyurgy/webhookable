@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Webhookable
   class WebhookEvent < ActiveRecord::Base
     self.table_name = "webhook_events"
@@ -20,14 +22,22 @@ module Webhookable
       endpoints = WebhookEndpoint.enabled.for_event(full_event_name)
       endpoints = endpoints.to_a unless endpoints.is_a?(ActiveRecord::Relation)
 
-      endpoints.each do |endpoint|
-        webhook_deliveries.create!(
-          webhook_endpoint: endpoint,
-          status: "pending"
-        )
+      return 0 if endpoints.empty?
+
+      # Use batch insert for better performance with many endpoints
+      timestamp = Time.current
+      delivery_data = endpoints.map do |endpoint|
+        {
+          webhook_event_id: id,
+          webhook_endpoint_id: endpoint.id,
+          status: "pending",
+          created_at: timestamp,
+          updated_at: timestamp
+        }
       end
 
-      webhook_deliveries.count
+      WebhookDelivery.insert_all(delivery_data)
+      delivery_data.size
     end
 
     # Enqueue all pending deliveries

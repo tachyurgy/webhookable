@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :webhookable do
   desc "Retry all failed webhook deliveries"
   task retry_failed: :environment do
@@ -58,7 +60,7 @@ namespace :webhookable do
     puts "  - Enabled:          #{enabled_endpoints}"
     puts "  - Disabled:         #{total_endpoints - enabled_endpoints}"
 
-    if total_deliveries > 0
+    if total_deliveries.positive?
       success_rate = (successful_deliveries.to_f / total_deliveries * 100).round(2)
       puts "\nSuccess Rate:         #{success_rate}%"
     end

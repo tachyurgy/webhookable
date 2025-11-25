@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Webhookable
   module TestHelpers
     # Clear all webhook data (useful for test cleanup)
@@ -70,7 +72,7 @@ module Webhookable
           block.call
           after_count = Webhookable::WebhookEvent.where(event_type: event_type.to_s).count
           @triggered_count = after_count - before_count
-          @triggered_count > 0
+          @triggered_count.positive?
         end
 
         failure_message do

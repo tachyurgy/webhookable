@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Example: Receiving and Verifying Webhooks
 #
 # This example shows how your customers should handle incoming webhooks
@@ -41,7 +43,6 @@ class WebhooksController < ApplicationController
 
     # 5. Return success (important!)
     head :ok
-
   rescue JSON::ParserError => e
     Rails.logger.error("Invalid JSON in webhook: #{e.message}")
     head :bad_request

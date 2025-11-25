@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Example: Custom Webhook Payloads
 #
 # This example shows how to customize webhook payloads
@@ -6,6 +8,7 @@ require 'webhookable'
 
 class Subscription < ApplicationRecord
   include Webhookable::Model
+
   webhook_events :activated, :cancelled, :payment_failed
 
   belongs_to :user
@@ -43,8 +46,8 @@ subscription.trigger_webhook(:activated)
 
 # Or override with custom payload for specific situations
 subscription.trigger_webhook(:payment_failed, custom_payload: {
-  subscription_id: subscription.id,
-  failure_reason: "Card declined",
-  retry_scheduled_at: 1.day.from_now,
-  amount_cents: subscription.plan.price_cents
-})
+                               subscription_id: subscription.id,
+                               failure_reason: 'Card declined',
+                               retry_scheduled_at: 1.day.from_now,
+                               amount_cents: subscription.plan.price_cents
+                             })

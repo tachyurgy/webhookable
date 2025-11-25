@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module Webhookable
   class Configuration
     attr_accessor :max_retry_attempts,
-                  :initial_retry_delay,
-                  :max_retry_delay,
-                  :timeout,
-                  :secret_key_base,
-                  :enable_inbox,
-                  :logger,
-                  :user_agent
+      :initial_retry_delay,
+      :max_retry_delay,
+      :timeout,
+      :secret_key_base,
+      :enable_inbox,
+      :logger,
+      :user_agent
 
     def initialize
       @max_retry_attempts = 5
@@ -34,7 +36,7 @@ module Webhookable
       if defined?(Rails) && Rails.logger
         Rails.logger
       else
-        Logger.new(STDOUT)
+        Logger.new($stdout)
       end
     end
   end

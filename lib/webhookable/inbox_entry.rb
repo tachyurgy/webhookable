@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Webhookable
   class InboxEntry < ActiveRecord::Base
     self.table_name = "webhookable_inbox_entries"
@@ -6,6 +8,14 @@ module Webhookable
 
     validates :url, presence: true
     validates :payload, presence: true
+    validate :validate_url_security
+
+    def validate_url_security
+      return if url.blank?
+
+      valid, error_message = UrlValidator.validate(url)
+      errors.add(:url, error_message) unless valid
+    end
 
     scope :recent, -> { order(created_at: :desc) }
 
@@ -21,6 +31,10 @@ module Webhookable
 
     # Replay this webhook to its original URL
     def replay!
+      # Re-validate URL at replay time to prevent DNS rebinding attacks
+      valid, error_message = UrlValidator.validate(url)
+      raise SecurityError, "URL validation failed at replay time: #{error_message}" unless valid
+
       response = HTTParty.post(
         url,
         body: payload.to_json,

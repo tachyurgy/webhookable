@@ -108,6 +108,23 @@ That's it. You're ready to send webhooks.
 
 ## Quick Start
 
+### Important: Explicit Model Inclusion
+
+Webhookable requires you to **explicitly include** the `Webhookable::Model` module in models that need webhooks:
+
+```ruby
+class Order < ApplicationRecord
+  include Webhookable::Model  # ← Required!
+  webhook_events :created, :completed
+end
+```
+
+This is intentional to:
+- Avoid namespace pollution on all ActiveRecord models
+- Make webhook-enabled models explicit and discoverable
+- Follow Rails conventions (like Devise, Pundit, etc.)
+- Prevent unexpected behavior in existing models
+
 ### Real-World Example
 
 Here's a complete example of adding webhooks to an e-commerce application:

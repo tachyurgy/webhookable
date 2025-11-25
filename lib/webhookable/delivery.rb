@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "httparty"
 
 module Webhookable
@@ -30,7 +32,7 @@ module Webhookable
         else
           handle_failure(response)
         end
-      rescue StandardError => e
+      rescue => e
         handle_error(e)
       end
 
@@ -40,6 +42,10 @@ module Webhookable
     private
 
     def send_webhook
+      # Re-validate URL at delivery time to prevent DNS rebinding attacks (TOCTOU)
+      valid, error_message = UrlValidator.validate(webhook_delivery.url)
+      raise SecurityError, "URL validation failed at delivery time: #{error_message}" unless valid
+
       HTTParty.post(
         webhook_delivery.url,
         body: webhook_delivery.payload.to_json,

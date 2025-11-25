@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveRecord::Schema.define do
   create_table :webhook_endpoints, force: true do |t|
     t.string :url, null: false
@@ -20,7 +22,7 @@ ActiveRecord::Schema.define do
   create_table :webhook_deliveries, force: true do |t|
     t.references :webhook_endpoint, null: false
     t.references :webhook_event, null: false
-    t.string :status, null: false, default: "pending"
+    t.string :status, null: false, default: 'pending'
     t.integer :attempt_count, default: 0, null: false
     t.datetime :last_attempt_at
     t.datetime :next_retry_at
@@ -54,5 +56,6 @@ end
 # Define test model
 class Order < ActiveRecord::Base
   include Webhookable::Model
+
   webhook_events :completed, :cancelled, :refunded
 end

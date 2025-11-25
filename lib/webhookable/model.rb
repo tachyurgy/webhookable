@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Webhookable
   module Model
     extend ActiveSupport::Concern
@@ -48,7 +50,7 @@ module Webhookable
       deliveries_count = webhook_event.create_deliveries!
 
       # Enqueue deliveries
-      webhook_event.enqueue_deliveries! if deliveries_count > 0
+      webhook_event.enqueue_deliveries! if deliveries_count.positive?
 
       # Instrument the event
       ActiveSupport::Notifications.instrument(
@@ -77,7 +79,7 @@ module Webhookable
     def webhook_deliveries
       Webhookable::WebhookDelivery
         .joins(:webhook_event)
-        .where(webhook_events: { eventable: self })
+        .where(webhook_events: {eventable: self})
     end
   end
 end

@@ -1,0 +1,19 @@
+# Standard Ruby style configuration for webhookable
+
+ignore:
+  # Test files and fixtures
+  - "spec/**/*"
+  - "test/**/*"
+  - "examples/**/*"
+  - "coverage/**/*"
+
+  # Generated/vendor files
+  - "vendor/**/*"
+  - "tmp/**/*"
+
+  # Documentation
+  - "doc/**/*"
+  - ".yardoc/**/*"
+
+# Standard Ruby version target
+ruby_version: 3.0

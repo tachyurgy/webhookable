@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Webhookable
   class Railtie < Rails::Railtie
     railtie_name :webhookable
@@ -10,11 +12,13 @@ module Webhookable
       require_relative "../generators/webhookable/install_generator"
     end
 
-    initializer "webhookable.active_record" do
-      ActiveSupport.on_load(:active_record) do
-        include Webhookable::Model
-      end
-    end
+    # NOTE: Models must explicitly include Webhookable::Model
+    # This is intentional to avoid namespace pollution and unexpected behavior
+    # Example:
+    #   class Order < ApplicationRecord
+    #     include Webhookable::Model
+    #     triggers_webhook "order.created", on: :create
+    #   end
 
     initializer "webhookable.logger" do
       Webhookable.configuration.logger ||= Rails.logger

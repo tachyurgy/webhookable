@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Webhookable.configure do |config|
   # Maximum number of retry attempts for failed webhook deliveries
   # Default: 5

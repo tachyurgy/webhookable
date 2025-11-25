@@ -1,37 +1,39 @@
-require "bundler/setup"
-require "simplecov"
+# frozen_string_literal: true
+
+require 'bundler/setup'
+require 'simplecov'
 
 SimpleCov.start do
-  add_filter "/spec/"
-  add_filter "/vendor/"
+  add_filter '/spec/'
+  add_filter '/vendor/'
 end
 
-require "webhookable"
-require "active_record"
-require "webmock/rspec"
-require "vcr"
-require "factory_bot"
-require "faker"
+require 'webhookable'
+require 'active_record'
+require 'webmock/rspec'
+require 'vcr'
+require 'factory_bot'
+require 'faker'
 
 # Configure ActiveRecord for testing
 ActiveRecord::Base.establish_connection(
-  adapter: "sqlite3",
-  database: ":memory:"
+  adapter: 'sqlite3',
+  database: ':memory:'
 )
 
 # Load schema
-load File.expand_path("support/schema.rb", __dir__)
+load File.expand_path('support/schema.rb', __dir__)
 
 # Configure VCR
 VCR.configure do |config|
-  config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
+  config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   config.hook_into :webmock
   config.configure_rspec_metadata!
   config.default_cassette_options = { record: :new_episodes }
 end
 
 # Load FactoryBot factories
-require_relative "support/factories"
+require_relative 'support/factories'
 
 # Configure RSpec
 RSpec.configure do |config|
@@ -45,11 +47,11 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.filter_run_when_matching :focus
-  config.example_status_persistence_file_path = "spec/examples.txt"
+  config.example_status_persistence_file_path = 'spec/examples.txt'
   config.disable_monkey_patching!
   config.warnings = true
 
-  config.default_formatter = "doc" if config.files_to_run.one?
+  config.default_formatter = 'doc' if config.files_to_run.one?
 
   config.order = :random
   Kernel.srand config.seed
@@ -57,6 +59,10 @@ RSpec.configure do |config|
   # Reset configuration before each test
   config.before(:each) do
     Webhookable.reset_configuration!
+
+    # Stub DNS resolution to return a valid public IP by default
+    # Individual tests can override this for specific scenarios
+    allow(Resolv).to receive(:getaddresses).and_return(['1.1.1.1'])
   end
 
   # Clean database after each test
