@@ -8,7 +8,7 @@ Webhookable gives your Rails application production-grade webhook functionality 
 Get started in minutes. Production-ready out of the box.
 
 [![Gem Version](https://badge.fury.io/rb/webhookable.svg)](https://badge.fury.io/rb/webhookable)
-[![Build Status](https://github.com/magnusfremont/webhookable/workflows/CI/badge.svg)](https://github.com/magnusfremont/webhookable/actions)
+[![Build Status](https://github.com/tachyurgy/webhookable/workflows/CI/badge.svg)](https://github.com/tachyurgy/webhookable/actions)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -649,12 +649,12 @@ The gem is available as open source under the terms of the [MIT License](LICENSE
 
 <!-- ✅ FIXED: Removed unverified email addresses, using GitHub for security reporting -->
 
-For security concerns, please see [SECURITY.md](SECURITY.md) or report via [GitHub Security Advisories](https://github.com/magnusfremont/webhookable/security/advisories).
+For security concerns, please see [SECURITY.md](SECURITY.md) or report via [GitHub Security Advisories](https://github.com/tachyurgy/webhookable/security/advisories).
 
 ## Support
 
-- **Issues & Questions**: [GitHub Issues](https://github.com/magnusfremont/webhookable/issues)
-- **General Discussion**: [GitHub Discussions](https://github.com/magnusfremont/webhookable/discussions)
+- **Issues & Questions**: [GitHub Issues](https://github.com/tachyurgy/webhookable/issues)
+- **General Discussion**: [GitHub Discussions](https://github.com/tachyurgy/webhookable/discussions)
 
 ## Credits
 
@@ -669,8 +669,8 @@ Special thanks to the Ruby and Rails communities for inspiration and foundationa
 ## Community
 
 Enjoying Webhookable? Consider:
-- ⭐ [Starring the repo](https://github.com/magnusfremont/webhookable) to help others discover it
-- 🐛 [Reporting issues](https://github.com/magnusfremont/webhookable/issues) to improve it for everyone
+- ⭐ [Starring the repo](https://github.com/tachyurgy/webhookable) to help others discover it
+- 🐛 [Reporting issues](https://github.com/tachyurgy/webhookable/issues) to improve it for everyone
 - 🤝 [Contributing](CONTRIBUTING.md) features or fixes
 
-[View on GitHub](https://github.com/magnusfremont/webhookable) | [View on RubyGems](https://rubygems.org/gems/webhookable)
+[View on GitHub](https://github.com/tachyurgy/webhookable) | [View on RubyGems](https://rubygems.org/gems/webhookable)
